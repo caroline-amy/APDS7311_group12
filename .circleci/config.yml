@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   sonarcloud-scan:
     docker:
-      - image: cimg/openjdk:17.0  # or openjdk:17 as suggested earlier
+      - image: cimg/openjdk:17.0  # This ensures Java 17 is used
     working_directory: ~/build
     steps:
       - checkout
