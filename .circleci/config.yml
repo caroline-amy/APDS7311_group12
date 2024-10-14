@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   sonarcloud-scan:
     docker:
-      - image: cimg/base888
+      - image: jruby:9.3
     working_directory: ~/build
     steps:
       - checkout
