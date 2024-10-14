@@ -3,10 +3,14 @@ version: 2.1
 jobs:
   sonarcloud-scan:
     docker:
-      - image: circleci/openjdk:17.0  # Ensure Java 17 is being used
+      - image: cimg/openjdk:17.0  # Use the correct image for Java 17
     working_directory: ~/build
     steps:
       - checkout
+      - run:
+          name: Clear APT Cache
+          command: |
+            sudo rm -rf /var/lib/apt/lists/*
       - run:
           name: Install Dependencies
           command: |
