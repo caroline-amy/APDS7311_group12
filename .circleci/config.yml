@@ -32,9 +32,6 @@ jobs:
               -Dsonar.login="$SONAR_TOKEN" \
               -Dsonar.branch.name="$SONAR_BRANCH" \
               -Dsonar.sources="."
-        - run:
-            name: Verify Java Version
-            command: java -version
 
 
 workflows:
