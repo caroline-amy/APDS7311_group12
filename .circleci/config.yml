@@ -26,14 +26,13 @@ jobs:
       - run:
           name: Run SonarCloud Analysis
           command: |
-            # Set Java 17 explicitly for SonarScanner
             export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
             export PATH=$JAVA_HOME/bin:$PATH
             source $BASH_ENV
-            java -version  # Confirm Java 17 is in use
+            java -version  # Confirm Java 17
             SONAR_BRANCH="${CIRCLE_BRANCH:-master}"
             echo "Sonar branch value is: $SONAR_BRANCH"
-            sonar-scanner \
+            $JAVA_HOME/bin/java -jar $(pwd)/sonar-scanner/lib/sonar-scanner-cli.jar \
               -Dsonar.projectKey="caroline-amy_APDS7311_group12" \
               -Dsonar.organization="caroline-amy" \
               -Dsonar.host.url="https://sonarcloud.io" \
