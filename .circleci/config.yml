@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   sonarcloud-scan:
     docker:
-      - image: cimg/openjdk:17.0  # Ensure Java 17 is being used
+      - image: circleci/buildpack-deps:buster
     working_directory: ~/build
     steps:
       - checkout
