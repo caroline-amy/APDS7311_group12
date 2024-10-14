@@ -24,9 +24,8 @@ jobs:
 
   sonarqube:
     docker:
-      - image: sonarsource/sonar-scanner-cli:latest
+      - image: circleci/node:latest
     working_directory: ~/build
-    resource_class: small
     steps:
       - checkout
       - run: find .
