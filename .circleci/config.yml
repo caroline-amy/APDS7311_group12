@@ -5,8 +5,6 @@ jobs:
     docker:
       - image: cimg/openjdk:17.0  # Use Java 17 to match SonarScanner requirements
     working_directory: ~/build
-    environment:
-      JAVA_HOME: /usr/lib/jvm/java-17-openjdk  # Set the Java home environment variable
     steps:
       - checkout
       - run:
@@ -17,7 +15,13 @@ jobs:
           name: Install Dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y unzip
+            sudo apt-get install -y unzip jenv
+      - run:
+          name: Set Java 17 as Default
+          command: |
+            jenv add /usr/lib/jvm/java-17-openjdk-amd64
+            jenv global 17
+            java -version  # Verify that Java 17 is now set
       - run:
           name: Install Sonar Scanner
           command: |
@@ -28,9 +32,12 @@ jobs:
       - run:
           name: Run SonarCloud Analysis
           command: |
+            export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+            export PATH=$JAVA_HOME/bin:$PATH
             source $BASH_ENV
             SONAR_BRANCH="${CIRCLE_BRANCH:-master}"
             echo "Sonar branch value is: $SONAR_BRANCH"
+            java -version  # Confirm Java 17
             sonar-scanner \
               -Dsonar.projectKey="caroline-amy_APDS7311_group12" \
               -Dsonar.organization="caroline-amy" \
