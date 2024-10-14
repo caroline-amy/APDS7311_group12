@@ -3,8 +3,10 @@ version: 2.1
 jobs:
   sonarcloud-scan:
     docker:
-      - image: cimg/openjdk:17.0  # Use the correct image for Java 17
+      - image: cimg/openjdk:17.0  # Use Java 17 to match SonarScanner requirements
     working_directory: ~/build
+    environment:
+      JAVA_HOME: /usr/lib/jvm/java-17-openjdk  # Set the Java home environment variable
     steps:
       - checkout
       - run:
