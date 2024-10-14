@@ -17,12 +17,6 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y unzip
       - run:
-          name: Set Java 17 as Default
-          command: |
-            export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-            export PATH=$JAVA_HOME/bin:$PATH
-            java -version  # Verify that Java 17 is now set
-      - run:
           name: Install Sonar Scanner
           command: |
             curl -L -o sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
@@ -32,10 +26,13 @@ jobs:
       - run:
           name: Run SonarCloud Analysis
           command: |
+            # Set Java 17 explicitly for SonarScanner
+            export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+            export PATH=$JAVA_HOME/bin:$PATH
             source $BASH_ENV
+            java -version  # Confirm Java 17 is in use
             SONAR_BRANCH="${CIRCLE_BRANCH:-master}"
             echo "Sonar branch value is: $SONAR_BRANCH"
-            java -version  # Confirm Java 17
             sonar-scanner \
               -Dsonar.projectKey="caroline-amy_APDS7311_group12" \
               -Dsonar.organization="caroline-amy" \
