@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   sonarcloud-scan:
     docker:
-      - image: cimg/openjdk:17.0  # This ensures Java 17 is used
+      - image: openjdk:17
     working_directory: ~/build
     steps:
       - checkout
@@ -32,6 +32,10 @@ jobs:
               -Dsonar.login="$SONAR_TOKEN" \
               -Dsonar.branch.name="$SONAR_BRANCH" \
               -Dsonar.sources="."
+        - run:
+            name: Verify Java Version
+            command: java -version
+
 
 workflows:
   version: 2
