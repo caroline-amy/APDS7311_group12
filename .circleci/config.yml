@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   sonarcloud-scan:
     docker:
-      - image: cimg/openjdk:17.0
+      - image: openjdk:17
     working_directory: ~/build
     steps:
       - checkout
